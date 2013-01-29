@@ -9,7 +9,9 @@ clone/download this repo, create a settings.cfg file with qrz user/pass (see set
 
 
 
+NOTE
+--------
 
-.. NOTE:  To use QRZ's XML API, a subscription is required. Visit www.QRZ.com to learn more.  I'll be releasing another ham radio callsign module (USA only) which will use free data from the FCC in the near future. 
+To use QRZ's XML API, a subscription is required. Visit www.QRZ.com to learn more.  I'll be releasing another ham radio callsign module (USA only) which will use free data from the FCC in the near future. 
 
 
