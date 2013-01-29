@@ -7,7 +7,8 @@ A python module to query QRZ.com's ham radio callsign database.
 
 clone/download this repo, create a settings.cfg file with qrz user/pass (see settings_example.cfg) then see qrz_example.py for a use example. 
 
-
+REQUIRES: xmldict, requests
+(install via pip) 
 
 NOTE
 --------
