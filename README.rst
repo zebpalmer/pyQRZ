@@ -2,20 +2,45 @@
 pyQRZ
 ==================
 
-A python module to query QRZ.com's ham radio license database.
+A python module to query QRZ.com's ham radio license database. Supports both python 2.7 and 3.x
+
+
+NOTE: this is VERY alpha, though working great for call sign lookup, which was what I needed quickly for another project
+I'm working on.
+
+
+Install / Use
+-----------------
+
+This package can be installed via pip: "pip install -U pyQRZ"
+
+
+Once installed, you'll need to create a settings file (see below) and use the path to said file
+
+
+# pyQRZ settings
+[qrz]
+username=blah
+password=blahblah
 
 
 
-I'll be packaging this and posting to pypi in the near future. If you want to use it now though,
-clone/download this repo, create a settings.cfg file with qrz user/pass (see settings_example.cfg)
-then see qrz_example.py for a use example. You'll also need to install 'xmldict' and 'requests' via pip
-if you don't already have them.
+Basic use example:
 
-At the moment, this is python 2.x only, onced packaged and on pypi, it'll support 3.x as well.
+qrz = QRZ('./settings.cfg')
+result = qrz.callsign("w7atc")
+print result['fname'], result['name']
+print result['addr2'], result['state']
+print result['country']
 
+
+ALSO NOTE:
 To use QRZ.com's XML API, a subscription is required. But, in my opinion it's the fastest and most complete (world wide)
-ham radio license database. I will be releasing another ham radio callsign module (USA only) which will data from the FCC
-in the near future.
+ham radio license database. If you don't have a QRZ.com subscription or aren't building an application
+(logging software) for those that do, this won't be of any use to you.
 
+
+My project will also incorperate the FCC database (free but USA only) I'll
+add that at some point.
 
 
