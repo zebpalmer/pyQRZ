@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 readme = open('README.rst', 'rt').read()
 
-versionstr = '0.0.1a'
+versionstr = '0.0.1b'
 
 setup(
 	name='pyQRZ',
