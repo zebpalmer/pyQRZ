@@ -17,7 +17,8 @@ This package can be installed via pip: "pip install -U pyQRZ"
 
 Once installed, you'll need to create a settings file (see below) and use the path to said file
 
-.. code-block::
+.. code-block:: python
+
     # pyQRZ settings
     [qrz]
     username=blah
