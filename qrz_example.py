@@ -1,4 +1,4 @@
-from qrz import QRZ
+from pyqrz import QRZ
 
 if __name__=='__main__':
     qrz = QRZ('./settings.cfg')
