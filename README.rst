@@ -17,21 +17,23 @@ This package can be installed via pip: "pip install -U pyQRZ"
 
 Once installed, you'll need to create a settings file (see below) and use the path to said file
 
-
-# pyQRZ settings
-[qrz]
-username=blah
-password=blahblah
+.. code-block::
+    # pyQRZ settings
+    [qrz]
+    username=blah
+    password=blahblah
 
 
 
 Basic use example:
 
-qrz = QRZ('./settings.cfg')
-result = qrz.callsign("w7atc")
-print result['fname'], result['name']
-print result['addr2'], result['state']
-print result['country']
+.. code-block:: python
+
+    qrz = QRZ('./settings.cfg')
+    result = qrz.callsign("w7atc")
+    print result['fname'], result['name']
+    print result['addr2'], result['state']
+    print result['country']
 
 
 ALSO NOTE:
