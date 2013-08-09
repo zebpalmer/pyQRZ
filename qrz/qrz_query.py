@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 #coding:utf-8
 
-import sys
 import requests
 import re
 import xmltodict
@@ -63,8 +62,7 @@ class QRZ(object):
             raise Exception("Error Querying")
         raw = xmltodict.parse(r.content)
         calldict = {}
-        for key in raw['QRZDatabase']['Callsign'].keys():
-            calldict[key] = raw['QRZDatabase']['Callsign'][key]
+        if raw['QRZDatabase'].has_key('Callsign'):
+            for key in raw['QRZDatabase']['Callsign'].keys():
+                calldict[key] = raw['QRZDatabase']['Callsign'][key]
         return calldict
-
-
