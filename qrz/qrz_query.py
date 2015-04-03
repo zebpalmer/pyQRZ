@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 #coding:utf-8
 
+import os
 import requests
 import re
+import time
 import xmltodict
 from ConfigParser import SafeConfigParser
 
@@ -54,15 +56,35 @@ class QRZ(object):
 
 
     def callsign(self, callsign):
-        if self._session_key is None:
-            self._get_session()
-        url = """http://xmldata.qrz.com/xml/current/?s={0}&callsign={1}""".format(self._session_key, callsign)
-        r = self._session.get(url)
-        if r.status_code != 200:
-            raise Exception("Error Querying")
-        raw = xmltodict.parse(r.content)
+        raw_xml = ''
+        xml_cache = self._cfg.cache['cache-path']
+        if xml_cache != '':
+            xml_filename = os.path.join(xml_cache, callsign + '.xml')
+            if os.path.isfile(xml_filename):
+                # Cache expires time is file's modification datetime + time allowed for file cache
+                #                                                      secs*mins*hours*days
+                cache_expiry_time = os.path.getmtime(xml_filename) + (60*60*24*int(self._cfg.cache['cache-expires']))
+                if cache_expiry_time > time.time():
+                    raw_xml = "".join(open(xml_filename).readlines())
+                else:
+                    os.remove(xml_filename)                
+        if raw_xml == '':
+            if self._session_key is None:
+                self._get_session()
+            url = """http://xmldata.qrz.com/xml/current/?s={0}&callsign={1}""".format(self._session_key, callsign)
+            r = self._session.get(url)
+            if r.status_code != 200:
+                raise Exception("Error Querying")
+            if xml_cache != '':
+                if not os.path.isdir(xml_cache):
+                    os.mkdir(xml_cache)
+                if r.content.find('<Callsign>') > -1:
+                    open(xml_filename, 'a').writelines(r.content)
+            raw_xml = r.content
+                
+        raw_dict = xmltodict.parse(raw_xml)
         calldict = {}
-        if raw['QRZDatabase'].has_key('Callsign'):
-            for key in raw['QRZDatabase']['Callsign'].keys():
-                calldict[key] = raw['QRZDatabase']['Callsign'][key]
+        if raw_dict['QRZDatabase'].has_key('Callsign'):
+            for key in raw_dict['QRZDatabase']['Callsign'].keys():
+                calldict[key] = raw_dict['QRZDatabase']['Callsign'][key]
         return calldict
