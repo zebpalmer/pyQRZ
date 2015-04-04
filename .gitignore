@@ -33,3 +33,9 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# Local Settings File
+settings.cfg
+
+# Local XML Cache
+/qrz-xml
