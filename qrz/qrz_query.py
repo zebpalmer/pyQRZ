@@ -57,17 +57,19 @@ class QRZ(object):
 
     def callsign(self, callsign):
         raw_xml = ''
-        xml_cache = self._cfg.cache['cache-path']
-        if xml_cache != '':
-            xml_filename = os.path.join(xml_cache, callsign + '.xml')
-            if os.path.isfile(xml_filename):
-                # Cache expires time is file's modification datetime + time allowed for file cache
-                #                                                      secs*mins*hours*days
-                cache_expiry_time = os.path.getmtime(xml_filename) + (60*60*24*int(self._cfg.cache['cache-expires']))
-                if cache_expiry_time > time.time():
-                    raw_xml = "".join(open(xml_filename).readlines())
-                else:
-                    os.remove(xml_filename)                
+        if 'cache' in self._cfg.__dict__:
+            xml_cache = self._cfg.cache['cache-path']
+            if xml_cache != '':
+                xml_filename = os.path.join(xml_cache, callsign + '.xml')
+                if os.path.isfile(xml_filename):
+                    # Cache expires time is file's modification datetime + time allowed for file cache
+                    #                                                      secs*mins*hours*days
+                    cache_expiry_time = os.path.getmtime(xml_filename) + (60*60*24*int(self._cfg.cache['cache-expires']))
+                    if cache_expiry_time > time.time():
+                        with open(xml_filename) as xml_file:
+                            raw_xml = "".join(xml_file.readlines())
+                    else:
+                        os.remove(xml_filename)                
         if raw_xml == '':
             if self._session_key is None:
                 self._get_session()
@@ -79,7 +81,8 @@ class QRZ(object):
                 if not os.path.isdir(xml_cache):
                     os.mkdir(xml_cache)
                 if r.content.find('<Callsign>') > -1:
-                    open(xml_filename, 'a').writelines(r.content)
+                    with open(xml_filename, 'w') as xml_file:
+                        xml_file.writelines(r.content)
             raw_xml = r.content
                 
         raw_dict = xmltodict.parse(raw_xml)
