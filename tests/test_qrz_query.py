@@ -4,7 +4,7 @@ import unittest
 
 sys.path.insert(0, os.path.abspath('..'))
 
-from qrz import QRZ
+from qrz import QRZ, CallsignNotFound, QRZerror
 
 
 VALID_SESSION = """
@@ -20,9 +20,6 @@ VALID_SESSION = """
 """
 
 class test_QRZ(unittest.TestCase):
-    # def test_qrz_session(self):
-    #     self.assertEqual('2331uf894c4bd29f3923f3bacf02c532d7bd9', session)
-
     def test_all(self):
         qrz = QRZ('/home/zeb/.qrz.cfg')
         result = qrz.callsign("w7atc")
@@ -31,3 +28,16 @@ class test_QRZ(unittest.TestCase):
         self.assertEqual(result['addr2'], 'Nampa')
         self.assertEqual(result['state'], 'ID')
         self.assertEqual(result['country'], 'United States')
+
+    def test_session_expire(self):
+        qrz = QRZ('/home/zeb/.qrz.cfg')
+        result = qrz.callsign("w7atc")
+        self.assertEqual(result['fname'], 'ZEB M')
+        qrz._session_key += "_test_invalid"
+        result = qrz.callsign("w7atc")
+        self.assertEqual(result['fname'], 'ZEB M')
+
+    def test_invalid_callsign(self):
+        qrz = QRZ('/home/zeb/.qrz.cfg')
+        with self.assertRaises(CallsignNotFound) as context:
+            result = qrz.callsign("w7atcw7atc")
