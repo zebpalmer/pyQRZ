@@ -16,15 +16,20 @@ class CallsignNotFound(Exception):
     pass
 
 class QRZ(object):
-    def __init__(self, cfgfile):
-        self._cfg = SafeConfigParser()
-        self._cfg.read(cfgfile)
+    def __init__(self, cfgfile=None):
+        if cfgfile:
+            self._cfg = SafeConfigParser()
+            self._cfg.read(cfgfile)
         self._session = None
         self._session_key = None
 
     def _get_session(self):
-        username = self._cfg.get('qrz', 'username')
-        password = self._cfg.get('qrz', 'password')
+        if self._cfg:
+            username = self._cfg.get('qrz', 'username')
+            password = self._cfg.get('qrz', 'password')
+        else:
+            username = os.environ.get('QRZ_USER')
+            password = os.environ.get('QRZ_PASSWORD')
         if not username or not password:
             raise Exception("No Username/Password found")
 
