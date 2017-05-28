@@ -49,7 +49,7 @@ class QRZ(object):
         self._session.verify = False
         r = self._session.get(url)
         if r.status_code == 200:
-            self._session_key = regex.search(r.content).group(1)
+            self._session_key = regex.search(r.content.decode("utf-8").group(1)
             if self._session_key is not None:
                 return True
         raise Exception("Could not get QRZ session")
@@ -80,10 +80,10 @@ class QRZ(object):
             if xml_cache != '':
                 if not os.path.isdir(xml_cache):
                     os.mkdir(xml_cache)
-                if r.content.find('<Callsign>') > -1:
+                if r.content.decode("utf-8").find('<Callsign>') > -1:
                     with open(xml_filename, 'w') as xml_file:
-                        xml_file.writelines(r.content)
-            raw_xml = r.content
+                        xml_file.writelines(r.content.decode("utf-8")
+            raw_xml = r.content.decode("utf-8")
                 
         raw_dict = xmltodict.parse(raw_xml)
         calldict = {}
