@@ -26,6 +26,8 @@ class test_QRZ(unittest.TestCase):
     def test_all(self):
         qrz = QRZ(' ~/.qrz.cfg')
         result = qrz.callsign("w7atc")
-        print(result['fname'], result['name'])
-        print(result['addr2'], result['state'])
-        print(result['country'])
+        self.assertEqual(result['fname'], 'ZEB M')
+        self.assertEqual(result['name'], 'PALMER')
+        self.assertEqual(result['addr2'], 'Nampa')
+        self.assertEqual(result['state'], 'ID')
+        self.assertEqual(result['country'], 'United States')
