@@ -2,11 +2,13 @@
 pyQRZ
 ==================
 
-A python module to query QRZ.com's ham radio license database. Supports both python 2.7 and 3.x
+A python module to query QRZ.com's ham radio license database. Tested on python 2.7, 3.4, 3.5, 3.6
 
 
-NOTE: this is VERY alpha, though working great for call sign lookup, which was what I needed quickly for another project
-I'm working on.
+Breaking Changes
+------------------
+When using pyQRZ in a project, please pin pyQRZ to a version that is working with your code. There may be breaking
+changes in a soon to be released version.
 
 
 Install / Use
@@ -15,7 +17,8 @@ Install / Use
 This package can be installed via pip: "pip install -U pyQRZ"
 
 
-Once installed, you'll need to create a settings file (see below) and use the path to said file
+Once installed, you'll need to create a settings file (see below) and provide the file path when using QRZ. Alternately,
+you may set environment variables "QRZ_USER" and "QRZ_PASSWORD" with appropriate contents.
 
 .. code-block:: python
 
@@ -30,20 +33,20 @@ Basic use example:
 
 .. code-block:: python
 
-    qrz = QRZ('./settings.cfg')
+    qrz = QRZ(cfg='./settings.cfg')
     result = qrz.callsign("w7atc")
     print result['fname'], result['name']
     print result['addr2'], result['state']
     print result['country']
 
 
-ALSO NOTE:
-To use QRZ.com's XML API, a subscription is required. But, in my opinion it's the fastest and most complete (world wide)
-ham radio license database. If you don't have a QRZ.com subscription or aren't building an application
-(logging software) for those that do, this won't be of any use to you.
+NOTES:
+To use QRZ.com's XML API for detailed data, a subscription is required. However, it appears you can get basic
+information with a standard QRZ user account. I wouldn't count on that though.
+
+I am thinking about providing a free (and opensourced) callsign lookup service, probably start off as USA only. If
+this is of interest to you, feel free to contact me. Knowing it would be useful would make it a higher priority.
 
 
-My project will also incorperate the FCC database (free but USA only) I'll
-add that at some point.
 
 
