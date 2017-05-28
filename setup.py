@@ -3,14 +3,13 @@ from setuptools import setup, find_packages
 
 readme = open('README.rst', 'rt').read()
 
-versionstr = '0.0.1b'
+versionstr = '0.0.2b'
 
 setup(
 	name='pyQRZ',
     version=versionstr,
     author='Zeb Palmer',
     author_email='zeb@zebpalmer.com',
-    packages=['qrz'],
     package_dir={ 'qrz': 'qrz'},
     url='http://github.com/zebpalmer/pyQRZ',
     license='LGPLv3',
@@ -18,6 +17,7 @@ setup(
     long_description=readme,
     install_requires=['requests', 'xmltodict'],
     use_2to3=True,
+    packages=find_packages(),
     classifiers=[
               'Development Status :: 3 - Alpha',
               'Environment :: Console',
