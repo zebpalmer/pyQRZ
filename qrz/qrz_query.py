@@ -1,25 +1,25 @@
 #!/usr/bin/env python
-#coding:utf-8
+# coding:utf-8
 
 import os
 import requests
-import re
-import time
 import xmltodict
 from ConfigParser import SafeConfigParser
-from os.path import expanduser
+
 
 class QRZerror(Exception):
     pass
 
+
 class CallsignNotFound(Exception):
     pass
+
 
 class QRZ(object):
     def __init__(self, cfg=None):
         if cfg:
             self._cfg = SafeConfigParser()
-            self._cfg.read(cfgfile)
+            self._cfg.read(cfg)
         else:
             self._cfg = None
         self._session = None
@@ -42,10 +42,9 @@ class QRZ(object):
         if r.status_code == 200:
             raw_session = xmltodict.parse(r.content)
             self._session_key = raw_session['QRZDatabase']['Session']['Key']
-            if self._session_key is not None:
+            if self._session_key:
                 return True
         raise Exception("Could not get QRZ session")
-
 
     def callsign(self, callsign, retry=True):
         if self._session_key is None:

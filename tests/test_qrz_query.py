@@ -4,7 +4,8 @@ import unittest
 
 sys.path.insert(0, os.path.abspath('..'))
 
-from qrz import QRZ, CallsignNotFound, QRZerror
+# noinspection PyPep8
+from qrz import QRZ, CallsignNotFound
 
 
 VALID_SESSION = """
@@ -19,7 +20,8 @@ VALID_SESSION = """
 </QRZDatabase>
 """
 
-class test_QRZ(unittest.TestCase):
+
+class Test_QRZ(unittest.TestCase):
     def test_all(self):
         qrz = QRZ()
         result = qrz.callsign("w7atc")
@@ -39,5 +41,6 @@ class test_QRZ(unittest.TestCase):
 
     def test_invalid_callsign(self):
         qrz = QRZ()
+        # noinspection PyUnusedLocal
         with self.assertRaises(CallsignNotFound) as context:
-            result = qrz.callsign("w7atcw7atc")
+            qrz.callsign("w7atcw7atc")

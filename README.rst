@@ -1,18 +1,18 @@
-==================
+=====
 pyQRZ
-==================
+=====
 
 A python module to query QRZ.com's ham radio license database. Tested on python 2.7, 3.4, 3.5, 3.6
 
 
 Breaking Changes
-------------------
+----------------
 When using pyQRZ in a project, please pin pyQRZ to a version that is working with your code. There may be breaking
 changes in a soon to be released version.
 
 
 Install / Use
------------------
+-------------
 
 This package can be installed via pip: "pip install -U pyQRZ"
 
