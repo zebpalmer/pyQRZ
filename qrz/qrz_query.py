@@ -9,6 +9,11 @@ import xmltodict
 from ConfigParser import SafeConfigParser
 from os.path import expanduser
 
+class QRZerror(Exception):
+    pass
+
+class CallsignNotFound(Exception):
+    pass
 
 class QRZ(object):
     def __init__(self, cfgfile):
