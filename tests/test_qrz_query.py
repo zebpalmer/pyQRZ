@@ -24,7 +24,7 @@ class test_QRZ(unittest.TestCase):
     #     self.assertEqual('2331uf894c4bd29f3923f3bacf02c532d7bd9', session)
 
     def test_all(self):
-        qrz = QRZ(' ~/.qrz.cfg')
+        qrz = QRZ('/home/zeb/.qrz.cfg')
         result = qrz.callsign("w7atc")
         self.assertEqual(result['fname'], 'ZEB M')
         self.assertEqual(result['name'], 'PALMER')
