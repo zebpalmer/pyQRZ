@@ -42,6 +42,8 @@ class QRZ(object):
         self._session_key = None
 
     def _get_session(self):
+        if not self._cfg.qrz.get('username') or not self._cfg.qrz.get('password'):
+            raise Exception("No Username/Password found")
         regex = re.compile("<Key>(.*)</Key>")
         url = '''https://xmldata.qrz.com/xml/current/?username={0}&password={1}'''.format(self._cfg.qrz['username'],
                                                                                           self._cfg.qrz['password'])
