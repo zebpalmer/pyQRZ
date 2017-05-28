@@ -7,51 +7,29 @@ import re
 import time
 import xmltodict
 from ConfigParser import SafeConfigParser
-
-class Settings(object):
-    def __init__(self, filename):
-        try:
-            settings = SafeConfigParser()
-            settings.read(filename)
-        except Exception, e:
-            raise Exception(e)
-
-        try:
-            for section in settings.sections():
-                temp = {}
-                for item in settings.items(section):
-                    lines = [x.strip() for x in item[1].split(',')]
-                    if len(lines) > 1:
-                        temp[item[0]] = lines
-                    else:
-                        temp[item[0]] = item[1]
-
-                self.__dict__[section] = temp
-        except Exception:
-            raise Exception('Error in config file')
-
-    def __getattr__(self, name):
-        print 'Config Section Not Found'
-        return {}
+from os.path import expanduser
 
 
 class QRZ(object):
     def __init__(self, cfgfile):
-        self._cfg = Settings(cfgfile)
+        self._cfg = SafeConfigParser()
+        self._cfg.read(cfgfile)
         self._session = None
         self._session_key = None
 
     def _get_session(self):
-        if not self._cfg.qrz.get('username') or not self._cfg.qrz.get('password'):
+        username = self._cfg.get('qrz', 'username')
+        password = self._cfg.get('qrz', 'password')
+        if not username or not password:
             raise Exception("No Username/Password found")
-        regex = re.compile("<Key>(.*)</Key>")
-        url = '''https://xmldata.qrz.com/xml/current/?username={0}&password={1}'''.format(self._cfg.qrz['username'],
-                                                                                          self._cfg.qrz['password'])
+
+        url = '''https://xmldata.qrz.com/xml/current/?username={0}&password={1}'''.format(username, password)
         self._session = requests.Session()
         self._session.verify = False
         r = self._session.get(url)
         if r.status_code == 200:
-            self._session_key = regex.search(r.content.decode("utf-8").group(1)
+            raw_session = xmltodict.parse(r.content)
+            self._session_key = raw_session['QRZDatabase']['Session']['Key']
             if self._session_key is not None:
                 return True
         raise Exception("Could not get QRZ session")
