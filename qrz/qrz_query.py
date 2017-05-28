@@ -20,11 +20,13 @@ class QRZ(object):
         if cfgfile:
             self._cfg = SafeConfigParser()
             self._cfg.read(cfgfile)
+        else:
+            self._cfg = None
         self._session = None
         self._session_key = None
 
     def _get_session(self):
-        if self._cfg:
+        if self._cfg and self._cfg.has_section('qrz'):
             username = self._cfg.get('qrz', 'username')
             password = self._cfg.get('qrz', 'password')
         else:

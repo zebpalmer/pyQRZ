@@ -21,7 +21,7 @@ VALID_SESSION = """
 
 class test_QRZ(unittest.TestCase):
     def test_all(self):
-        qrz = QRZ('/home/zeb/.qrz.cfg')
+        qrz = QRZ()
         result = qrz.callsign("w7atc")
         self.assertEqual(result['fname'], 'ZEB M')
         self.assertEqual(result['name'], 'PALMER')
@@ -30,7 +30,7 @@ class test_QRZ(unittest.TestCase):
         self.assertEqual(result['country'], 'United States')
 
     def test_session_expire(self):
-        qrz = QRZ('/home/zeb/.qrz.cfg')
+        qrz = QRZ()
         result = qrz.callsign("w7atc")
         self.assertEqual(result['fname'], 'ZEB M')
         qrz._session_key += "_test_invalid"
@@ -38,6 +38,6 @@ class test_QRZ(unittest.TestCase):
         self.assertEqual(result['fname'], 'ZEB M')
 
     def test_invalid_callsign(self):
-        qrz = QRZ('/home/zeb/.qrz.cfg')
+        qrz = QRZ()
         with self.assertRaises(CallsignNotFound) as context:
             result = qrz.callsign("w7atcw7atc")
