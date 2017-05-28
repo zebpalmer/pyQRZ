@@ -21,16 +21,17 @@ deploy:
       LzFENnMvdWRNRmpoZHZDK3grSnhoWGo0enNQdnVIeGRkTjZIcy9ucU1TeUg4TnZlL3VpcVFzSlhx
       Q2xHME1RSXljNU45OWhpUEU3Yk10MW9COVV4SEpHOTBmWFFsV3I1UktpUHRDaDRxRnBacXVnbEpG
       Nkc3d3Q3RjRuVlpyMWVMSzJkUEJyN1JpaXYzeStuNm1qQ0t2THM5SGN4WnNJRmFXVUw4VWoxVDA9
-env:
-- TOXENV=py36
-- TOXENV=py35
-- TOXENV=py34
-- TOXENV=py27
 install: pip install -U tox
 language: python
-python: 3.6
+python:
+    - "2.7"
+    - "3.4"
+    - "3.5"
+    - "3.6"
+    - "nightly"
+install: pip install tox-travis
+script: tox
 before_script:
   - sleep 15
-script: tox
 after_success:
   - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
