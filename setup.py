@@ -1,40 +1,36 @@
-import sys
 from setuptools import setup, find_packages
 
 readme = open('README.rst', 'rt').read()
 
-versionstr = '0.0.1b'
+versionstr = '0.1.0'
 
 setup(
-	name='pyQRZ',
+    name='pyQRZ',
     version=versionstr,
     author='Zeb Palmer',
     author_email='zeb@zebpalmer.com',
-    packages=['qrz'],
-    package_dir={ 'qrz': 'qrz'},
+    package_dir={'qrz': 'qrz'},
     url='http://github.com/zebpalmer/pyQRZ',
-    license='LGPLv3',
+    license='MIT',
     description='Query QRZ.com Ham Radio License API',
     long_description=readme,
-    install_requires=['requests', 'xmltodict'],
+    install_requires=['requests', 'xmltodict', 'six'],
     use_2to3=True,
+    packages=find_packages(),
     classifiers=[
-              'Development Status :: 3 - Alpha',
-              'Environment :: Console',
-              'Environment :: Plugins',
-              'Intended Audience :: Developers',
-              'Intended Audience :: Telecommunications Industry',
-              'License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)',
-              'Natural Language :: English',
-              'Operating System :: OS Independent',
-              'Programming Language :: Python',
-              'Programming Language :: Python :: 2',
-              'Programming Language :: Python :: 2.7',
-              'Programming Language :: Python :: 3',
-              'Programming Language :: Python :: 3.2',
-              'Topic :: Software Development :: Libraries :: Python Modules',
-              'Topic :: Utilities'
-              ],
+        'Development Status :: 4 - Beta'
+        'Intended Audience :: Developers'
+        'License :: OSI Approved :: MIT License'
+        'Natural Language :: English'
+        'Programming Language :: Python'
+        'Programming Language :: Python :: 2'
+        'Programming Language :: Python :: 2.7'
+        'Programming Language :: Python :: 3'
+        'Programming Language :: Python :: 3.4'
+        'Programming Language :: Python :: 3.5'
+        'Programming Language :: Python :: 3.6'
+        'Programming Language :: Python :: 3 :: Only'
+        'Topic :: Communications :: Ham Radio'
+        'Topic :: Software Development :: Libraries'
+        'Topic :: Software Development :: Libraries :: Python Modules'],
 )
-
-
