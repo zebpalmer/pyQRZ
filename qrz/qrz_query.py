@@ -16,8 +16,8 @@ class CallsignNotFound(Exception):
     pass
 
 class QRZ(object):
-    def __init__(self, cfgfile=None):
-        if cfgfile:
+    def __init__(self, cfg=None):
+        if cfg:
             self._cfg = SafeConfigParser()
             self._cfg.read(cfgfile)
         else:
