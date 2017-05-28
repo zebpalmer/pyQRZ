@@ -39,3 +39,4 @@ settings.cfg
 
 # Local XML Cache
 /qrz-xml
+.idea/
