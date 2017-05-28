@@ -43,8 +43,4 @@ class QRZ(object):
         if r.status_code != 200:
             raise Exception("Error Querying")
         raw_dict = xmltodict.parse(r.content)
-        calldict = {}
-        if raw_dict['QRZDatabase'].has_key('Callsign'):
-            for key in raw_dict['QRZDatabase']['Callsign'].keys():
-                calldict[key] = raw_dict['QRZDatabase']['Callsign'][key]
-        return calldict
+        return raw_dict['QRZDatabase']['Callsign']
