@@ -51,7 +51,7 @@ class QRZ(object):
         self._session.verify = False
         r = self._session.get(url)
         if r.status_code == 200:
-            self._session_key = regex.search(r.content).group(1)
+            self._session_key = regex.search(r.content.decode("utf-8").group(1)
             if self._session_key is not None:
                 return True
         raise Exception("Could not get QRZ session")
