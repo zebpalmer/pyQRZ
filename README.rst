@@ -2,6 +2,9 @@
 pyQRZ
 =====
 
+.. image:: https://travis-ci.org/zebpalmer/pyQRZ.svg?branch=master
+    :target: https://travis-ci.org/zebpalmer/pyQRZ
+
 A python module to query QRZ.com's ham radio license database. Tested on python 2.7, 3.4, 3.5, 3.6
 
 
