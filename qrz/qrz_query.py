@@ -38,7 +38,7 @@ class QRZ(object):
 
         url = '''https://xmldata.qrz.com/xml/current/?username={0}&password={1}'''.format(username, password)
         self._session = requests.Session()
-        self._session.verify = os.getenv('SSL_VERIFY', False)
+        self._session.verify = os.getenv(bool('SSL_VERIFY'), False)
         r = self._session.get(url)
         if r.status_code == 200:
             raw_session = xmltodict.parse(r.content)
