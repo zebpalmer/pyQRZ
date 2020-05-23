@@ -10,10 +10,11 @@ from ConfigParser import SafeConfigParser
 class QRZerror(Exception):
     pass
 
-
 class CallsignNotFound(Exception):
     pass
 
+class QRZsessionNotFound(Exception):
+    pass
 
 class QRZ(object):
     def __init__(self, cfg=None):
