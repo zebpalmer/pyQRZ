@@ -16,6 +16,9 @@ class CallsignNotFound(Exception):
 class QRZsessionNotFound(Exception):
     pass
 
+class QRZMissingCredentials(Exception):
+    pass
+
 class QRZ(object):
     def __init__(self, cfg=None):
         if cfg:
@@ -34,7 +37,7 @@ class QRZ(object):
             username = os.environ.get('QRZ_USER')
             password = os.environ.get('QRZ_PASSWORD')
         if not username or not password:
-            raise Exception("No Username/Password found")
+            raise QRZMissingCredentials("No Username/Password found")
 
         url = '''https://xmldata.qrz.com/xml/current/?username={0}&password={1}'''.format(username, password)
         self._session = requests.Session()

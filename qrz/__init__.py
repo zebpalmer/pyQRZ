@@ -1,1 +1,1 @@
-from qrz_query import QRZ, QRZerror, CallsignNotFound, QRZsessionNotFound
+from qrz_query import QRZ, QRZerror, CallsignNotFound, QRZsessionNotFound, QRZMissingCredentials
