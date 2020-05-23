@@ -42,10 +42,10 @@ class QRZ(object):
         r = self._session.get(url)
         if r.status_code == 200:
             raw_session = xmltodict.parse(r.content)
-            self._session_key = raw_session['QRZDatabase']['Session']['Key']
+            self._session_key = raw_session.get('QRZDatabase').get('Session').get('Key')
             if self._session_key:
                 return True
-        raise Exception("Could not get QRZ session")
+        raise QRZsessionNotFound("Could not get QRZ session")
 
     def callsign(self, callsign, retry=True):
         if self._session_key is None:
